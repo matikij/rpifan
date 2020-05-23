@@ -40,15 +40,16 @@ class PWMFan(Fan):
     def __init__(self, pin, initial_state=0, frequency=100):
         self.pin       = pin
         self.frequency = frequency
-        self.state     = initial_state
 
         GPIO.setup(pin,GPIO.OUT) # make pin into an output
         self.pwm       = GPIO.PWM(pin, frequency)
+        self.state     = initial_state
+
         self.pwm.start(self.dc)
 
     @property
     def dc(self):
-        return self.state * 100
+        return self._state * 100
     
     @dc.setter
     def dc(self, value):
@@ -128,7 +129,7 @@ class TableController(TemperatureController):
 
 def main():
     fan=PWMFan(17)
-    controller = SimpleController(interval=2.0, high_temp=55.0, low_temp=48.0, fan=fan)
+    controller = SimpleController(interval=10.0, high_temp=50.0, low_temp=46.0, fan=fan)
     controller.loop()
 
 if __name__ == '__main__':
