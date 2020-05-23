@@ -1,0 +1,11 @@
+[Unit]
+Description=RPi fan control
+
+[Service]
+User=pi
+Type=exec
+ExecStart=/usr/local/bin/fan.py
+
+[Install]
+WantedBy=multi-user.target
+
